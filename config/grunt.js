@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         mode: '755'
       },
       commands: {
-        src: ['commands/*.*']
+        src: [__dirname + '/commands/*.*']
       }
     },
 
