@@ -58,6 +58,7 @@ var Environment = factory.createClass({
     }
   },
 
+  // .getSSLParams() :Object
   getSSLParams: function () {
     var params = {
       key: fs.readFileSync(this.config.ssl.key),
@@ -69,6 +70,37 @@ var Environment = factory.createClass({
       params.rejectUnauthorized = false;
     }
     return params;
+  },
+
+  // .getCommands(name: String) :Object
+  getCommand: function (name) {
+    if (factory.isObject(this.config.cmd)) {
+      var file = this.config.cmd[name];
+      if (file && fs.existsSync(file)) {
+        var cmd = require(file);
+        cmd.name = name;
+        Object.keys(cmd).forEach(function (key) {
+          if (factory.isFunction(cmd[key])) {
+            cmd[key] = cmd[key].bind(cmd);
+          }
+        });
+        return cmd;
+      }
+    }
+  },
+
+  // .getCommands() :Array
+  getCommands: function () {
+    var commands = [];
+    if (factory.isObject(this.config.cmd)) {
+      Object.keys(this.config.cmd).forEach(function (name) {
+        var cmd = this.getCommand(name);
+        if (cmd) {
+          commands.push(cmd);
+        }
+      }, this);
+    }
+    return commands;
   }
 
 });
