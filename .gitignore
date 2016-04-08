@@ -1,0 +1,7 @@
+node_modules
+*.sqlite
+logs
+commands/qw-event.js
+commands/qw-department.js
+commands/qw-schema.js
+server/keys/ccmhsp.qualitywise.com.br.*
