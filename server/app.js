@@ -5,6 +5,7 @@
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
+var factory = require('bauer-factory');
 var database = require('../database/index.js');
 
 module.exports = function (env) {
