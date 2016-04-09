@@ -19,28 +19,14 @@ function sync () {
   });
 }
 
-// function sample () {
-//   var populate = require('../app/utils/populate.js');
-//   populate({
-//     environment: env.name,
-//     force: cmd.force,
-//     seed: cmd.seed,
-//     amount: cmd.amount
-//   }, function (error) {
-//     if (error) {
-//       throw error;
-//     }
-//   });
-// }
-
 function refresh () {
   if (!cmd.model || !db.model(cmd.model)) {
     throw new Error('invalid model ' + cmd.model);
   }
   var model = db.model(cmd.model);
-  model.describe().then(function(fields) {
+  model.describe().then(function (fields) {
     model.findAll().map(function (row) {
-      Object.keys(fields).forEach(function(field) {
+      Object.keys(fields).forEach(function (field) {
         row.set(field, row.get(field));
       });
       return row.save();
@@ -65,10 +51,6 @@ cmd
       case 'sync':
         sync();
         break;
-
-      // case 'sample':
-      //   sample();
-      //   break;
 
       case 'refresh':
         refresh();
