@@ -8,7 +8,8 @@ var factory = require('bauer-factory');
 
 var Seeder = factory.createClass({
 
-  constructor: function () {
+  constructor: function (env) {
+    this.env = env;
     this.seeds = [];
   },
 
@@ -21,6 +22,9 @@ var Seeder = factory.createClass({
 
   addRecords: function (model, records) {
     this.add(function (db, model, records) {
+      if (factory.isFunction(records)) {
+        records = records(this.env);
+      }
       return db.model(model).bulkCreate(records);
     }, [model, records]);
   },
@@ -46,17 +50,9 @@ var Seeder = factory.createClass({
 // - -------------------------------------------------------------------- - //
 
 module.exports = function (db, env) {
-  var seeder = new Seeder();
-  if (factory.isString(env.config.app.seed)) {
-    var seed = require(env.config.app.seed);
-    if (factory.isFunction(seed)) {
-      seed(seeder, db, env);
-    } else {
-      throw new Error('seed module must export a function');
-    }
-  } else {
-    throw new Error('seed config must be a filename string');
-  }
+  var seeder = new Seeder(env);
+  var seed = env.requireConfig(['app', 'seed']);
+  seed(seeder, db, env);
   return seeder.run(db);
 };
 

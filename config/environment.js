@@ -37,34 +37,6 @@ var Environment = factory.createClass({
     this.config = factory.extend({}, this.defaults, require(file));
   },
 
-  // .getSchemaFile(name String) :String
-  getSchemaFile: function (name) {
-    var file;
-    if (this.isProduction) {
-      file = path.resolve(this.base, 'schemas', name + '.js');
-    } else {
-      file = path.resolve(this.base, 'ccmhsp', 'schemas', name + '.js');
-    }
-    return file;
-  },
-
-  // .hasSchema(name String) :Boolean
-  hasSchema: function (name) {
-    return fs.existsSync(this.getSchemaFile(name));
-  },
-
-  // .getSchema(name String) :Object
-  getSchema: function (name) {
-    if (this.hasSchema(name)) {
-      var file = this.getSchemaFile(name);
-      var schema = require(file);
-      if (factory.isFunction(schema)) {
-        schema = schema(this);
-      }
-      return schema;
-    }
-  },
-
   // .getSSLParams() :Object
   getSSLParams: function () {
     var params = {
@@ -110,16 +82,48 @@ var Environment = factory.createClass({
     return commands;
   },
 
-  // .requireApi() :Function
-  requireApi: function () {
-    if (!factory.isString(this.config.app.api)) {
-      throw new Error('api config must be a filename string');
+  // .requireConfig(key Array) :Function
+  requireConfig: function (key) {
+    var config = this.config;
+    if (factory.isArray(key)) {
+      key.forEach(function (k) {
+        if (!config[k]) {
+          throw new Error('config not found: ' + key.join('.'));
+        }
+        config = config[k];
+      });
+      key = key.join('.');
+    } else if (factory.isString(key)) {
+      if (!config[key]) {
+        throw new Error('config not found: ' + key);
+      }
+      config = config[key];
     }
-    var api = require(this.config.app.api);
-    if (!factory.isFunction(api)) {
-      throw new Error('api module must export a function');
+    if (!config || config === this.config) {
+      throw new Error('config not found: ' + key.join('.'));
     }
-    return api;
+    var file = path.resolve(this.dir, config);
+    var code = require(file);
+    if (!factory.isFunction(code)) {
+      throw new Error('module must export a function: ' + file);
+    }
+    return code;
+  },
+
+  // .requireFile(key Array) :Function
+  requireFile: function (key) {
+    var file = path.resolve(this.base, [].concat(key));
+    if (!fs.existsSync(file)) {
+      file = path.resolve(this.dir, [].concat(key));
+    }
+    if (!fs.existsSync(file)) {
+      throw new Error('file not found: ' + file);
+    }
+    var code = require(file);
+    if (!factory.isFunction(code)) {
+      throw new Error('module must export a function: ' + file);
+    }
+    return code;
   },
 
   // .createDb() :Sequelize

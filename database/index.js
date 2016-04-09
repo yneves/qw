@@ -25,16 +25,8 @@ module.exports = function (env) {
     });
   };
 
-  if (factory.isString(env.config.app.schema)) {
-    var schema = require(env.config.app.schema);
-    if (factory.isFunction(schema)) {
-      schema(db, Sequelize, env);
-    } else {
-      throw new Error('schema module must export a function');
-    }
-  } else {
-    throw new Error('schema config must be a filename string');
-  }
+  var schema = env.requireConfig(['app', 'schema']);
+  schema(db, Sequelize, env);
 
   return db;
 };
