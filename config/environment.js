@@ -37,6 +37,19 @@ var Environment = factory.createClass({
     this.config = factory.extend({}, this.defaults, require(file));
   },
 
+  // .serverConfig() :void
+  serverConfig: function () {
+    this.server = {
+      cwd: this.dir,
+      pid: path.resolve(this.dir, '.qw/server-pid.js'),
+      script: path.resolve(__dirname, '../commands/qw-server.js'),
+      logs: {
+        error: path.resolve(__dirname, '.qw/stderr.log'),
+        output: path.resolve(__dirname, '.qw/stdout.log')
+      }
+    };
+  },
+
   // .getSSLParams() :Object
   getSSLParams: function () {
     var params = {

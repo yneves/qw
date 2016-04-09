@@ -129,38 +129,44 @@ module.exports = function (grunt) {
     };
 
     // grunt concat:pm2_env
-    gruntConfig.concat['pm2_' + env.name] = {
-      src: ['.qw/pm2-server.json'],
-      dest: '.qw/pm2-server-' + env.name + '.json',
-      options: {
-        process: {
-          data: {
-            package: gruntConfig.package,
-            env: env
+    if (env.config.pm2) {
+      gruntConfig.concat['pm2_' + env.name] = {
+        src: [path.resolve(env.dir, env.config.pm2)],
+        dest: path.resolve(env.dir, '.qw/pm2-server-' + env.name + '.json'),
+        options: {
+          process: {
+            data: {
+              package: gruntConfig.package,
+              env: env
+            }
           }
         }
-      }
-    };
+      };
+    }
 
     // grunt concat:nginx_env
-    gruntConfig.concat['nginx_' + env.name] = {
-      src: ['.qw/nginx-server.conf'],
-      dest: '.qw/nginx-server-' + env.name + '.conf',
-      options: {
-        process: {
-          data: {
-            package: gruntConfig.package,
-            env: env
+    if (env.config.nginx) {
+      gruntConfig.concat['nginx_' + env.name] = {
+        src: [path.resolve(env.dir, env.config.nginx)],
+        dest: path.resolve(env.dir, '.qw/nginx-server-' + env.name + '.conf'),
+        options: {
+          process: {
+            data: {
+              package: gruntConfig.package,
+              env: env
+            }
           }
         }
-      }
-    };
+      };
+    }
 
     // grunt run:env
-    gruntConfig.run[env.name] = {
-      cmd: 'pm2',
-      args: [ 'restart', path.resolve(env.dir, '../.qw', 'pm2-server-' + env.name + '.json') ]
-    };
+    if (env.config.pm2) {
+      gruntConfig.run[env.name] = {
+        cmd: 'pm2',
+        args: [ 'restart', path.resolve(env.dir, '.qw/pm2-server-' + env.name + '.json') ]
+      };
+    }
 
     if (env.isProduction) {
       grunt.registerTask(env.name, [
