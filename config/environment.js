@@ -4,7 +4,14 @@
 
 var fs = require('fs');
 var path = require('path');
+var https = require('https');
+var http = require('http');
+var express = require('express');
 var factory = require('bauer-factory');
+
+var api = require('../server/api.js');
+var app = require('../server/app.js');
+var database = require('../database/index.js');
 
 // - -------------------------------------------------------------------- - //
 
@@ -101,6 +108,57 @@ var Environment = factory.createClass({
       }, this);
     }
     return commands;
+  },
+
+  // .requireApi() :Function
+  requireApi: function () {
+    if (factory.isString(this.config.app.api)) {
+      var api = require(this.config.app.api);
+      if (factory.isFunction(api)) {
+        return api;
+      } else {
+        throw new Error('api module must export a function');
+      }
+    } else {
+      throw new Error('api config must be a filename string');
+    }
+  },
+
+  createDb: function () {
+    return database(this);
+  },
+
+  // .getPort() :Number
+  getPort: function () {
+    return this.config.app.port;
+  },
+
+  // .createApiServer(callback Function) :HTTPServer
+  createApiServer: function (callback) {
+    var db = this.createDb();
+    var apiServer = express();
+    apiServer.use('/api', api(db, this));
+    var httpServer = http.createServer(apiServer);
+    db.sync().bind(this).then(function () {
+      httpServer.listen(function () {
+        apiServer.set('port', httpServer.address().port);
+        if (factory.isFunction(callback)) {
+          callback();
+        }
+      });
+    });
+    return httpServer;
+  },
+
+  // .createAppServer(callback Function) :HTTPServer
+  createAppServer: function (callback) {
+    var db = this.createDb();
+    var appServer = app(db, this);
+    var httpsServer = https.createServer(this.getSSLParams(), appServer);
+    db.sync().bind(this).then(function () {
+      httpsServer.listen(this.getPort(), callback);
+    });
+    return httpsServer;
   }
 
 });

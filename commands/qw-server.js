@@ -3,9 +3,11 @@
 
 'use strict';
 
-var cp = require('child_process');
-var path = require('path');
-var args = [path.resolve(__dirname, '../server/server.js')];
-cp.spawnSync('node', args, { stdio: 'inherit' });
+var qw = require('../index.js');
+var env = qw.getEnv();
+
+env.createAppServer(function () {
+  process.stdout.write('\n' + env.name + ' server running on port ' + env.getPort() + '\n');
+});
 
 // - -------------------------------------------------------------------- - //
