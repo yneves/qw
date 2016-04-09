@@ -69,10 +69,12 @@ var Config = factory.createClass({
     var dir = this.dir;
     var all = ['testing', 'development', 'staging'];
     fs.readdirSync(dir).forEach(function (item) {
-      var stat = fs.statSync(path.resolve(dir, item));
-      if (stat.isDirectory()) {
-        if (fs.existsSync(path.resolve(dir, item, 'config.js'))) {
-          all.push('production_' + item);
+      if (item !== 'default') {
+        var stat = fs.statSync(path.resolve(dir, item));
+        if (stat.isDirectory()) {
+          if (fs.existsSync(path.resolve(dir, item, 'config.js'))) {
+            all.push('production_' + item);
+          }
         }
       }
     });
