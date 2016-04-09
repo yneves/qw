@@ -9,7 +9,6 @@ var seeders = require('./seeders.js');
 
 module.exports = function (env) {
 
-  env = config.getEnv(env);
   var opts = env.config.database;
   var db = new Sequelize(opts.name, opts.username, opts.password, opts.settings);
 

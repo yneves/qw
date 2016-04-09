@@ -112,18 +112,17 @@ var Environment = factory.createClass({
 
   // .requireApi() :Function
   requireApi: function () {
-    if (factory.isString(this.config.app.api)) {
-      var api = require(this.config.app.api);
-      if (factory.isFunction(api)) {
-        return api;
-      } else {
-        throw new Error('api module must export a function');
-      }
-    } else {
+    if (!factory.isString(this.config.app.api)) {
       throw new Error('api config must be a filename string');
     }
+    var api = require(this.config.app.api);
+    if (!factory.isFunction(api)) {
+      throw new Error('api module must export a function');
+    }
+    return api;
   },
 
+  // .createDb() :Sequelize
   createDb: function () {
     return database(this);
   },

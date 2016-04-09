@@ -11,7 +11,7 @@ module.exports = function (db, env) {
     mergeParams: false,
     caseSensitive: true
   });
-  var api = env.requireAPI();
+  var api = env.requireApi();
   api(router, db, env);
   return router;
 };
