@@ -112,9 +112,12 @@ var Environment = factory.createClass({
 
   // .requireFile(key Array) :Function
   requireFile: function (key) {
-    var file = path.resolve(this.base, [].concat(key));
+    var file = path.resolve.apply(path, [this.base].concat(key));
     if (!fs.existsSync(file)) {
-      file = path.resolve(this.dir, [].concat(key));
+      file = path.resolve.apply(path, [this.dir].concat(key));
+    }
+    if (file === this.base || file === this.dir) {
+      throw new Error('file not found: ' + file);
     }
     if (!fs.existsSync(file)) {
       throw new Error('file not found: ' + file);
