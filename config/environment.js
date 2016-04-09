@@ -116,7 +116,7 @@ var Environment = factory.createClass({
     if (!fs.existsSync(file)) {
       file = path.resolve.apply(path, [this.dir, 'default'].concat(key));
     }
-    if (file === this.base || file === this.dir) {
+    if (file === this.base || file === this.dir + '/default') {
       throw new Error('file not found: ' + file);
     }
     if (!fs.existsSync(file)) {
