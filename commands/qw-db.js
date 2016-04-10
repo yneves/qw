@@ -5,8 +5,8 @@
 
 var cmd = require('commander');
 var output = require('./output.js');
-var config = require('../index.js');
-var database = require('../database/index.js');
+var config = require('../lib/index.js');
+var database = require('../lib/db.js');
 var env = config.getEnv();
 var db = database(env);
 

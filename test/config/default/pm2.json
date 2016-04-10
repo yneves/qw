@@ -1,0 +1,23 @@
+{
+  "name": "qw-<%= pkg.name %>-<%= env.name %>",
+  "cwd": "<%= env.config.deploy.dir %>",
+  "args": [],
+  "script": "<%= env.server.script %>",
+  "node_args": [],
+  "log_date_format": "YYYY-MM-DD HH:mm Z",
+  "error_file": "<%= env.server.logs.error %>",
+  "out_file": "<%= env.server.logs.output %>",
+  "pid_file": "<%= env.server.pid %>",
+  "min_uptime": "200s",
+  "max_restarts": 10,
+  "max_memory_restart": "100M",
+  "cron_restart": "1 0 * * *",
+  "merge_logs": true,
+  "exec_interpreter": "node",
+  "exec_mode": "fork",
+  "autorestart": true,
+  "vizion": false,
+  "env": {
+    "NODE_ENV": "<%= env.name %>"
+  }
+}

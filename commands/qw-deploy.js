@@ -7,7 +7,7 @@ var fs = require('fs');
 var path = require('path');
 var cmd = require('commander');
 var output = require('./output.js');
-var config = require('../index.js');
+var config = require('../lib/index.js');
 var Crawler = require('bauer-crawler');
 var env = config.getEnv();
 

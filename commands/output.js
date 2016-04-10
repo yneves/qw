@@ -5,7 +5,7 @@
 
 var spinner = require('loading-spinner');
 var pkg = require('../package.json');
-var env = require('../index.js').getEnv();
+var env = require('../lib/index.js').getEnv();
 
 function print (params) {
 

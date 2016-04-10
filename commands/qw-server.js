@@ -3,7 +3,7 @@
 
 'use strict';
 
-var qw = require('../index.js');
+var qw = require('../lib/index.js');
 var env = qw.getEnv();
 
 env.createAppServer(function () {

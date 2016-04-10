@@ -13,7 +13,7 @@ var dir = path.dirname(__dirname);
 // already in the current project
 if (cwd.indexOf(dir) === 0) {
 
-  var config = require('../index.js');
+  var config = require('../lib/index.js');
   var env = config.getEnv();
   env.getCommands().forEach(function (command) {
     cmd.command(command.name + ' ' + command.arguments, command.description);
