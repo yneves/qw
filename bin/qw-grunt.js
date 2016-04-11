@@ -8,28 +8,24 @@ var cmd = require('commander');
 var path = require('path');
 var Crawler = require('bauer-crawler');
 
-function grunt (tasks) {
-  var crawler = new Crawler({
-    plugins: [
-      'bauer-plugin-grunt'
-    ],
-    config: {
-      grunt: {
-        workers: 0,
-        base: path.resolve(qw.dir, '..'),
-        gruntFile: path.resolve(__dirname, '../lib/grunt.js'),
-        gruntPath: require.resolve('grunt')
-      }
-    }
-  });
-  crawler.start(function (promise) {
-    return promise.grunt(tasks).exit();
-  });
-}
+var tasks = process.argv.slice(2);
 
-cmd.action(function () {
-  grunt(cmd.args);
+var crawler = new Crawler({
+  plugins: [
+    'bauer-plugin-grunt'
+  ],
+  config: {
+    grunt: {
+      workers: 0,
+      base: path.resolve(qw.dir, '..'),
+      gruntFile: path.resolve(__dirname, '../lib/grunt.js'),
+      gruntPath: require.resolve('grunt')
+    }
+  }
 });
-cmd.parse(process.argv);
+
+crawler.start(function (promise) {
+  return promise.grunt(tasks).exit();
+});
 
 // - -------------------------------------------------------------------- - //
