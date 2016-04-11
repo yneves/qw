@@ -7,8 +7,8 @@ var path = require('path');
 module.exports = {
 
   database: {
-    seed: path.resolve(__dirname, '../databsase/seed.js'),
-    schema: path.resolve(__dirname, '../databsase/schema.js')
+    seed: path.resolve(__dirname, '../database/seed.js'),
+    schema: path.resolve(__dirname, '../database/schema.js')
   },
 
   app: {
