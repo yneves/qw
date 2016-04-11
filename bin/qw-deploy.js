@@ -56,7 +56,7 @@ function deploy (target) {
       exec.push('cd ' + remoteDir + ' && qw db sync');
     }
     if (cmd.grunt || cmd.full) {
-      exec.push('cd ' + remoteDir + ' && grunt ' + target);
+      exec.push('cd ' + remoteDir + ' && qw grunt');
     }
 
     if (exec.length) {
