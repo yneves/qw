@@ -7,22 +7,28 @@ var qw = require('qw');
 var path = require('path');
 var Crawler = require('bauer-crawler');
 
-var crawler = new Crawler({
-  plugins: [
-    'bauer-plugin-grunt'
-  ],
-  config: {
-    grunt: {
-      workers: 0,
-      base: path.resolve(qw.dir, '..'),
-      gruntFile: path.resolve(__dirname, '../lib/grunt.js'),
-      gruntPath: require.resolve('grunt')
+function grunt (tasks) {
+  var crawler = new Crawler({
+    plugins: [
+      'bauer-plugin-grunt'
+    ],
+    config: {
+      grunt: {
+        workers: 0,
+        base: path.resolve(qw.dir, '..'),
+        gruntFile: path.resolve(__dirname, '../lib/grunt.js'),
+        gruntPath: require.resolve('grunt')
+      }
     }
-  }
-});
+  });
+  crawler.start(function (promise) {
+    return promise.grunt(tasks).exit();
+  });
+}
 
-crawler.start(function (promise) {
-  return promise.grunt('default').exit();
+cmd.action(function () {
+  grunt(cmd.args);
 });
+cmd.parse(process.argv);
 
 // - -------------------------------------------------------------------- - //
