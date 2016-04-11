@@ -16,7 +16,7 @@
     "babel-preset-react": "^6.5.0",
     "bauer-crawler": "^0.2.8",
     "bauer-factory": "^2.0.6",
-    "bauer-plugin-grunt": "^0.1.2",
+    "bauer-plugin-grunt": "^0.1.4",
     "bauer-plugin-rsync": "^0.2.1",
     "bauer-plugin-ssh": "^0.1.1",
     "commander": "^2.9.0",
