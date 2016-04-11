@@ -4,6 +4,7 @@
 'use strict';
 
 var qw = require('qw');
+var cmd = require('commander');
 var path = require('path');
 var Crawler = require('bauer-crawler');
 
