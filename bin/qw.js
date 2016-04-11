@@ -20,9 +20,10 @@ if (cwd.indexOf(dir) === 0) {
     delete cmd._execs[command.name];
   });
 
-  cmd.command('db <action>', 'database tools');
-  cmd.command('deploy <target>', 'deployment tool');
-  cmd.command('server', 'run local server');
+  cmd.command('db <action>', 'Database tools');
+  cmd.command('deploy <target>', 'Deployment tool');
+  cmd.command('grunt', 'Run grunt');
+  cmd.command('server', 'Run local server');
   cmd.defaultExecutable = 'command.js';
   cmd.parse(process.argv);
 
