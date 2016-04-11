@@ -34,14 +34,15 @@ function deploy (target) {
 
     var targetEnv = config.getEnv(target);
     var privateKey = targetEnv.config.deploy.key;
-    var remoteDir = targetEnv.config.deploy.dir;
+    var sourceDir = targetEnv.config.deploy.source;
+    var remoteDir = targetEnv.config.deploy.target;
     var remoteAddr = targetEnv.config.deploy.host;
     var remoteUser = targetEnv.config.deploy.user;
 
     var exclude = ['.git', 'node_modules'].concat(targetEnv.config.deploy.ignore);
 
     promise = promise.rsync({
-      source: path.resolve(__dirname, '../') + '/*',
+      source: path.resolve(sourceDir) + '/*',
       destination: remoteUser + '@' + remoteAddr + ':' + remoteDir,
       exclude: exclude,
       flags: 'avr',
