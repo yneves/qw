@@ -4,8 +4,8 @@
 'use strict';
 
 var spinner = require('loading-spinner');
-var pkg = require('../package.json');
 var env = require('../lib/index.js').getEnv();
+var pkg = env.getPackage();
 
 function print (params) {
 

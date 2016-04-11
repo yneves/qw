@@ -8,7 +8,7 @@
     "email": "yurinevessilveira@gmail.com"
   },
   "bin": {
-    "qw": "./commands/qw.js"
+    "qw": "./bin/qw.js"
   },
   "main": "./lib/index.js",
   "dependencies": {

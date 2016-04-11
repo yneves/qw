@@ -7,7 +7,7 @@ var fs = require('fs');
 var cp = require('child_process');
 var path = require('path');
 var cmd = require('commander');
-var cwd = path.resolve(process.cwd(), 'node_modules/qw/commands/qw.js');
+var cwd = path.resolve(process.cwd(), 'node_modules/qw/bin/qw.js');
 var dir = path.dirname(__dirname);
 
 // already in the current project

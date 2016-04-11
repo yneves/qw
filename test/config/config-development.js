@@ -13,8 +13,8 @@ module.exports = {
 
   app: {
     port: 8899,
-    api: path.resolve(__dirname, '../app/api.js'),
-    client: path.resolve(__dirname, '../app/client')
+    api: path.resolve(__dirname, '../server/api.js'),
+    client: path.resolve(__dirname, '../server/client')
   },
 
   cmd: {

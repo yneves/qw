@@ -8,19 +8,19 @@ module.exports = {
 
   database: {},
 
-  app: {
+  server: {
     port: 9999,
-    api: path.resolve(__dirname, '../app/api.js'),
-    client: path.resolve(__dirname, '../app/client')
+    api: path.resolve(__dirname, '../server/api.js')
   },
 
   cmd: {},
 
-  src: {
+  client: {
     js: [],
     jsx: [],
     less: [],
-    html: []
+    html: [],
+    assets: []
   },
 
   ssl: {

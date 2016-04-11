@@ -6,8 +6,8 @@
 var qw = require('../lib/index.js');
 var env = qw.getEnv();
 
-env.createAppServer(function () {
-  process.stdout.write('\n' + env.name + ' server running on port ' + env.getPort() + '\n');
+var server = env.createServer(function () {
+  process.stdout.write('\n' + env.name + ' server running on port ' + server.address().port + '\n');
 });
 
 // - -------------------------------------------------------------------- - //
