@@ -25,18 +25,31 @@ function print (params) {
 
 function printCommand (cmd) {
 
-  var args = {
+  var info = {
     package: pkg.name,
     version: pkg.version,
     environment: env.name,
     command: cmd._name
   };
+
+  var args = [];
   cmd._args.forEach(function (arg, index) {
-    args[arg.name] = cmd.args[index];
+    if (cmd._name === 'qw-command' && index === 0) {
+      info.command = cmd.args[index];
+    } else {
+      arga.push({
+        name: arg.name,
+        value: cmd.args[index]
+      });
+    }
+  });
+
+  args.forEach(function (arg) {
+    info[arg.name] = arg.value;
   });
 
   print('');
-  print(args);
+  print(info);
   print('');
 }
 
