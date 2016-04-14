@@ -37,7 +37,7 @@ function printCommand (cmd) {
     if (cmd._name === 'qw-command' && index === 0) {
       info.command = cmd.args[index];
     } else {
-      arga.push({
+      args.push({
         name: arg.name,
         value: cmd.args[index]
       });
