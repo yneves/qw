@@ -19,15 +19,7 @@ function deploy (target) {
     plugins: [
       'bauer-plugin-rsync',
       'bauer-plugin-ssh'
-    ],
-    config: {
-      rsync: {
-        workers: 0
-      },
-      ssh: {
-        workers: 0
-      }
-    }
+    ]
   });
 
   crawler.start(function (promise) {
