@@ -18,7 +18,7 @@ cmd.action(function () {
   command.env = env;
   command.config = config;
   command.output = output;
-  command.action.apply(command, cmd.args.slice(1));
+  command.action.apply(command, cmd.rawArgs.slice(3));
 });
 cmd.parse(process.argv);
 

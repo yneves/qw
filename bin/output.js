@@ -33,15 +33,18 @@ function printCommand (cmd) {
   };
 
   var args = [];
+  var rawArgs = cmd.rawArgs.slice(2);
+  var indexAdd = 0;
+
   cmd._args.forEach(function (arg, index) {
     if (cmd._name === 'qw-command' && index === 0) {
-      info.command = cmd.args[index];
-    } else {
-      args.push({
-        name: arg.name,
-        value: cmd.args[index]
-      });
+      info.command = rawArgs[index];
+      indexAdd = 1;
     }
+    args.push({
+      name: arg.name,
+      value: rawArgs[index + indexAdd]
+    });
   });
 
   args.forEach(function (arg) {
