@@ -15,7 +15,6 @@ var crawler = new Crawler({
   ],
   config: {
     grunt: {
-      workers: 0,
       base: path.resolve(qw.dir, '..'),
       gruntFile: path.resolve(__dirname, '../lib/grunt.js'),
       gruntPath: require.resolve('grunt')
