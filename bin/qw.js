@@ -21,6 +21,7 @@ if (cwd.indexOf(dir) === 0) {
   });
 
   cmd.command('db <action>', 'Database tools');
+  cmd.command('backup <target>', 'Backup tool');
   cmd.command('deploy <target>', 'Deployment tool');
   cmd.command('grunt', 'Run grunt');
   cmd.command('server', 'Run local server');
