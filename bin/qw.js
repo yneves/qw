@@ -7,7 +7,7 @@ const fs = require('fs');
 const cp = require('child_process');
 const path = require('path');
 const cmd = require('commander');
-const cwd = path.resolve(process.cwd(), 'node_modules/qw/bin/qw.js');
+const cwd = path.resolve(process.cwd(), 'node_modules/qw-cli/bin/qw.js');
 const dir = path.dirname(__dirname);
 
 // already in the current project
