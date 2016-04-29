@@ -3,12 +3,12 @@
 
 'use strict';
 
-var cmd = require('commander');
-var output = require('./output.js');
-var config = require('../lib/index.js');
-var database = require('../lib/db.js');
-var env = config.getEnv();
-var db = database(env);
+const cmd = require('commander');
+const output = require('./output.js');
+const config = require('../lib/index.js');
+const database = require('../lib/db.js');
+const env = config.getEnv();
+const db = database(env);
 
 // - -------------------------------------------------------------------- - //
 
@@ -23,7 +23,7 @@ function refresh() {
   if (!cmd.model || !db.model(cmd.model)) {
     throw new Error('invalid model ' + cmd.model);
   }
-  var model = db.model(cmd.model);
+  const model = db.model(cmd.model);
   model.describe().then(function (fields) {
     model.findAll().map(function (row) {
       Object.keys(fields).forEach(function (field) {
