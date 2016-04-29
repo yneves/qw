@@ -7,9 +7,9 @@ var Config = require('../lib/config.js');
 
 // - -------------------------------------------------------------------- - //
 
-describe('qw', function () {
+describe('qw', () => {
 
-  it('list all environments', function () {
+  it('list all environments', () => {
     var config = new Config(__dirname + '/config');
     var envs = config.getAllEnvs();
     assert.deepEqual(envs, [

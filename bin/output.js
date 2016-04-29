@@ -3,11 +3,11 @@
 
 'use strict';
 
-var spinner = require('loading-spinner');
-var env = require('../lib/index.js').getEnv();
-var pkg = env.getPackage();
+const spinner = require('loading-spinner');
+const env = require('../lib/index.js').getEnv();
+const pkg = env.getPackage();
 
-function print (params) {
+function print(params) {
 
   if (typeof params === 'string') {
     process.stdout.write(params + '\n');
@@ -17,24 +17,24 @@ function print (params) {
 
   } else if (typeof params === 'object') {
     Object.keys(params).forEach(function (key) {
-      var label = key.substr(0, 1).toUpperCase() + key.substr(1);
+      const label = key.substr(0, 1).toUpperCase() + key.substr(1);
       process.stdout.write(label + ': ' + params[key] + '\n');
     });
   }
 }
 
-function printCommand (cmd) {
+function printCommand(cmd) {
 
-  var info = {
+  const info = {
     package: pkg.name,
     version: pkg.version,
     environment: env.name,
     command: cmd._name
   };
 
-  var args = [];
-  var rawArgs = cmd.rawArgs.slice(2);
-  var indexAdd = 0;
+  const args = [];
+  const rawArgs = cmd.rawArgs.slice(2);
+  const indexAdd = 0;
 
   cmd._args.forEach(function (arg, index) {
     if (cmd._name === 'qw-command' && index === 0) {
@@ -56,7 +56,7 @@ function printCommand (cmd) {
   print('');
 }
 
-function start () {
+function start() {
   spinner.start(100, {
     clearChar: true,
     clearLine: true,
@@ -65,7 +65,7 @@ function start () {
   });
 }
 
-function stop () {
+function stop() {
   spinner.stop();
 }
 

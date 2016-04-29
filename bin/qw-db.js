@@ -12,14 +12,14 @@ var db = database(env);
 
 // - -------------------------------------------------------------------- - //
 
-function sync () {
+function sync() {
   db.sync({
     force: cmd.force,
     seed: cmd.seed
   });
 }
 
-function refresh () {
+function refresh() {
   if (!cmd.model || !db.model(cmd.model)) {
     throw new Error('invalid model ' + cmd.model);
   }
@@ -42,7 +42,7 @@ cmd
   .option('-f, --force', 'Drops existing tables before creating new ones.')
   .option('-a, --amount [amount]', 'Amount of sample data to be created.')
   .option('-m, --model [model]', 'Model to have all records loaded and saved.')
-  .action(function (action) {
+  .action((action) => {
 
     output.command(cmd);
 

@@ -3,27 +3,16 @@
 
 'use strict';
 
-var qw = require('qw');
-var path = require('path');
-var Crawler = require('bauer-crawler');
+const qw = require('qw');
+const path = require('path');
+const grunt = require('grunt');
 
-var tasks = process.argv.slice(2);
+const tasks = process.argv.slice(2);
+const options = {
+  base: path.resolve(qw.dir, '..'),
+  gruntfile: path.resolve(__dirname, '../lib/grunt.js')
+};
 
-var crawler = new Crawler({
-  plugins: [
-    'bauer-plugin-grunt'
-  ],
-  config: {
-    grunt: {
-      base: path.resolve(qw.dir, '..'),
-      gruntFile: path.resolve(__dirname, '../lib/grunt.js'),
-      gruntPath: require.resolve('grunt')
-    }
-  }
-});
-
-crawler.start(function (promise) {
-  return promise.grunt(tasks).exit();
-});
+grunt.tasks(tasks, options);
 
 // - -------------------------------------------------------------------- - //

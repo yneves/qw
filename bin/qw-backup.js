@@ -3,36 +3,36 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var cmd = require('commander');
-var output = require('./output.js');
-var config = require('../lib/index.js');
-var Crawler = require('bauer-crawler');
-var env = config.getEnv();
+const fs = require('fs');
+const path = require('path');
+const cmd = require('commander');
+const output = require('./output.js');
+const config = require('../lib/index.js');
+const Crawler = require('bauer-crawler');
+const env = config.getEnv();
 
 // - -------------------------------------------------------------------- - //
 
-function backup (target) {
+function backup(target) {
 
-  var crawler = new Crawler({
+  const crawler = new Crawler({
     plugins: [
       'bauer-plugin-rsync',
       'bauer-plugin-ssh'
     ]
   });
 
-  crawler.start(function (promise) {
+  crawler.start((promise) => {
 
-    var targetEnv = config.getEnv(target);
-    var database = targetEnv.config.database.name;
-    var privateKey = targetEnv.config.deploy.key;
-    var sourceDir = targetEnv.config.deploy.source;
-    var remoteDir = targetEnv.config.deploy.target;
-    var remoteAddr = targetEnv.config.deploy.host;
-    var remoteUser = targetEnv.config.deploy.user;
-    var localFile = path.resolve(sourceDir, database + '-backup.sql');
-    var remoteFile = path.resolve(remoteDir, database + '-backup.sql');
+    const targetEnv = config.getEnv(target);
+    const database = targetEnv.config.database.name;
+    const privateKey = targetEnv.config.deploy.key;
+    const sourceDir = targetEnv.config.deploy.source;
+    const remoteDir = targetEnv.config.deploy.target;
+    const remoteAddr = targetEnv.config.deploy.host;
+    const remoteUser = targetEnv.config.deploy.user;
+    const localFile = path.resolve(sourceDir, database + '-backup.sql');
+    const remoteFile = path.resolve(remoteDir, database + '-backup.sql');
 
     return promise.ssh({
         host: remoteAddr,
@@ -59,7 +59,7 @@ function backup (target) {
 
 cmd
   .arguments('<target>')
-  .action(function (target) {
+  .action((target) => {
     if (env.name !== 'development') {
       throw new Error('must backup from development environment');
     }

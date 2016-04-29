@@ -3,35 +3,35 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var cmd = require('commander');
-var output = require('./output.js');
-var config = require('../lib/index.js');
-var Crawler = require('bauer-crawler');
-var env = config.getEnv();
+const fs = require('fs');
+const path = require('path');
+const cmd = require('commander');
+const output = require('./output.js');
+const config = require('../lib/index.js');
+const Crawler = require('bauer-crawler');
+const env = config.getEnv();
 
 // - -------------------------------------------------------------------- - //
 
-function deploy (target) {
+function deploy(target) {
 
-  var crawler = new Crawler({
+  const crawler = new Crawler({
     plugins: [
       'bauer-plugin-rsync',
       'bauer-plugin-ssh'
     ]
   });
 
-  crawler.start(function (promise) {
+  crawler.start((promise) => {
 
-    var targetEnv = config.getEnv(target);
-    var privateKey = targetEnv.config.deploy.key;
-    var sourceDir = targetEnv.config.deploy.source;
-    var remoteDir = targetEnv.config.deploy.target;
-    var remoteAddr = targetEnv.config.deploy.host;
-    var remoteUser = targetEnv.config.deploy.user;
+    const targetEnv = config.getEnv(target);
+    const privateKey = targetEnv.config.deploy.key;
+    const sourceDir = targetEnv.config.deploy.source;
+    const remoteDir = targetEnv.config.deploy.target;
+    const remoteAddr = targetEnv.config.deploy.host;
+    const remoteUser = targetEnv.config.deploy.user;
 
-    var exclude = ['.git', 'node_modules'].concat(targetEnv.config.deploy.ignore);
+    const exclude = ['.git', 'node_modules'].concat(targetEnv.config.deploy.ignore);
 
     promise = promise.rsync({
       source: path.resolve(sourceDir) + '/*',
@@ -41,7 +41,7 @@ function deploy (target) {
       shell: 'ssh -2 -p 22  -i ' + privateKey
     });
 
-    var exec = [];
+    const exec = [];
     if (cmd.npm || cmd.full) {
       exec.push('cd ' + remoteDir + ' && rm -rf node_modules && npm install');
     }
@@ -74,7 +74,7 @@ cmd
   .option('--npm', 'Runs npm install.')
   .option('--db', 'Runs db sync.')
   .option('--grunt', 'Runs grunt.')
-  .action(function (target) {
+  .action((target) => {
     if (env.name !== 'development') {
       throw new Error('must deploy from development environment');
     }

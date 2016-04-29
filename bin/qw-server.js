@@ -3,10 +3,10 @@
 
 'use strict';
 
-var qw = require('../lib/index.js');
-var env = qw.getEnv();
+const qw = require('../lib/index.js');
+const env = qw.getEnv();
 
-var server = env.createServer(function () {
+const server = env.createServer(() => {
   process.stdout.write('\n' + env.name + ' server running on port ' + server.address().port + '\n');
 });
 

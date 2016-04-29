@@ -3,19 +3,19 @@
 
 'use strict';
 
-var fs = require('fs');
-var cp = require('child_process');
-var path = require('path');
-var cmd = require('commander');
-var cwd = path.resolve(process.cwd(), 'node_modules/qw/bin/qw.js');
-var dir = path.dirname(__dirname);
+const fs = require('fs');
+const cp = require('child_process');
+const path = require('path');
+const cmd = require('commander');
+const cwd = path.resolve(process.cwd(), 'node_modules/qw/bin/qw.js');
+const dir = path.dirname(__dirname);
 
 // already in the current project
 if (cwd.indexOf(dir) === 0) {
 
-  var config = require('../lib/index.js');
-  var env = config.getEnv();
-  env.getCommands().forEach(function (command) {
+  const config = require('../lib/index.js');
+  const env = config.getEnv();
+  env.getCommands().forEach((command) => {
     cmd.command(command.name + ' ' + command.arguments, command.description);
     delete cmd._execs[command.name];
   });
@@ -30,7 +30,7 @@ if (cwd.indexOf(dir) === 0) {
 
 // forward the call to the current project's qw command
 } else if (fs.existsSync(cwd)) {
-  var args = [path.resolve(cwd)].concat(process.argv.slice(2));
+  const args = [path.resolve(cwd)].concat(process.argv.slice(2));
   cp.spawnSync('node', args, { stdio: 'inherit' });
 
 } else {
