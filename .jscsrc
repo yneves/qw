@@ -44,8 +44,10 @@
     "requireSpaceBeforeObjectValues": true,
     "requireSpaceBetweenArguments": true,
     "requireSpacesInFunction": {
-      "beforeOpeningRoundBrace": true,
       "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
     },
     "requireEarlyReturn": true,
     "validateIndentation": 2,

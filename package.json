@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "name": "qw",
+  "name": "qw-cli",
+  "description": "Toolkit for fullstack development.",
   "version": "0.1.0",
   "author": {
     "url": "http://yneves.com/",
@@ -30,6 +30,7 @@
     "grunt-contrib-less": "^1.3.0",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-forever": "^0.4.7",
     "grunt-run": "^0.5.3",
     "loading-spinner": "^1.1.3",
     "minimist": "^1.2.0",
