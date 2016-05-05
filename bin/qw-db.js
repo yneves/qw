@@ -4,7 +4,7 @@
 'use strict';
 
 const cmd = require('commander');
-const output = require('./output.js');
+const output = require('../lib/output.js');
 const config = require('../lib/index.js');
 const env = config.getEnv();
 
